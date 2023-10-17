@@ -1,0 +1,54 @@
+.company-list {
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px auto; 
+  max-width: 1050px; 
+  text-align: center;
+  border-radius: 5px;
+}
+  
+  .loader{
+    font-size: 48px;
+    color: #0a0a0a;
+    display: inline-block;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    position: relative;
+  }
+  .loader:after{
+    content: 'Loading';
+    position: relative;
+    z-index: 5;
+  }
+  .loader:before{
+    content: '';
+    height: 6px;
+    border: 1px solid;
+    border-radius: 10px;
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+    background: linear-gradient(#00ff26 100%, transparent 0) no-repeat;
+    background-size: 0% auto;
+    animation: 10s lineGrow linear infinite;
+  }
+
+  @keyframes lineGrow {to {  background-size: 100% auto}}
+  
+  .error {
+    color: #FF0000;
+    font-weight: bold;
+    font-size: 18px;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  li {
+    margin: 5px 0;
+  }
+
+  
