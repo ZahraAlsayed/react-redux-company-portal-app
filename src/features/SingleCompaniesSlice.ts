@@ -4,38 +4,38 @@ export type Company = {
   id: number;
   login: string;
 };
+
 export type CompaniesState = {
   data: Company[];
   loading: boolean;
   error: null ;
 };
-
-export const fetchAllCompanies = createAsyncThunk('companies/fetchAllCompanies', async () => {
-  const response = await fetch('https://api.github.com/organizations');
+export const fetchCompanyById = createAsyncThunk('companies/fetchCompanyById', async (id: number) => {
+  const response = await fetch(`https://api.github.com/organizations/${id}`);
   const data = await response.json();
   return data;
 });
 
-const companiesReducer = createSlice({
+const SingleCompaniesReducer = createSlice({
   name: 'companies',
   initialState: { data: [], loading: false, error: null } as CompaniesState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchAllCompanies.pending, (state) => {
+      .addCase(fetchCompanyById.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchAllCompanies.fulfilled, (state, action) => {
+      .addCase(fetchCompanyById.fulfilled, (state, action) => {
         state.loading = false;
         state.error = null;
-        state.data = action.payload;
+        state.data = [action.payload]; // Update the state with the single company
       })
-      .addCase(fetchAllCompanies.rejected, (state, action) => {
+      .addCase(fetchCompanyById.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
-      })
+      });
   },
 });
 
-export default companiesReducer.reducer;
+export default SingleCompaniesReducer.reducer;

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchAllCompanies, Company } from '../features/companiesSlice';
 import './style.css'
+
 function Companies() {
   const dispatch = useDispatch();
   const { data: companies, loading, error } = useSelector(
