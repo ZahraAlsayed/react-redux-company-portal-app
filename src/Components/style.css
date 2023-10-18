@@ -1,13 +1,73 @@
-.company-list {
-  background-color: #f2f2f2;
-  border: 1px solid #ccc;
-  padding: 10px;
-  margin: 10px auto; 
-  max-width: 1050px; 
-  text-align: center;
+.header {
+  display: flex;
+  position: sticky;
+  justify-content: space-between;
+  align-items: center;
+  padding: 60px;
+  background-color: #333;
+  color: #fff;
+}
+
+.logo  {
+  font-family:'Domine';
+  max-width: 100px;
+  height: auto;
+}
+
+.search-bar {
+  display: flex;
+  gap: 10px;
+}
+
+.search-bar input[type="text"] {
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 200px;
+}
+.sort-dropdown label {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.sort-dropdown select {
+  padding: 5px;
+  border: 1px solid #ddd;
   border-radius: 5px;
 }
-  
+
+.company-list {
+  padding: 10px;
+  margin: 30px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Change the number to adjust the number of columns */
+  gap: 20px; /* Adjust the gap between grid items */
+}
+
+.company {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+}
+
+.company img {
+  max-width: 100%;
+}
+
+/* Add media queries for responsiveness */
+@media screen and (max-width: 768px) {
+  .company {
+      flex-direction: column;
+  }
+
+  .company {
+      width: 100%;
+  }
+}
+.company img{
+  width: 50%;
+}
+
   .loader{
     font-size: 48px;
     color: #0a0a0a;
@@ -40,15 +100,6 @@
     color: #FF0000;
     font-weight: bold;
     font-size: 18px;
-  }
-  
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  li {
-    margin: 5px 0;
   }
 
   

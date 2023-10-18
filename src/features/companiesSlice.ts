@@ -1,25 +1,49 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-export type Company = {
-  id: number;
-  login: string;
-};
-export type CompaniesState = {
-  data: Company[];
-  loading: boolean;
-  error: null ;
-};
+import {CompaniesState} from '../type'
 
-export const fetchAllCompanies = createAsyncThunk('companies/fetchAllCompanies', async () => {
-  const response = await fetch('https://api.github.com/organizations');
-  const data = await response.json();
-  return data;
-});
+const initialState :CompaniesState ={
+  data: [],
+  loading: false,
+  error: null ,
+  searchForCompany :0,
+  SingleCompany:null
+ }
+
+export const fetchAllCompanies = createAsyncThunk('Companies/fetchData', async () => {
+  try {
+    const response = await fetch('https://api.github.com/organizations');
+    // checking there is any issue with network
+    if (!response.ok) {
+      throw new Error('Network response error');
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+//checking if there is any issue when fetch process
+  console.log(error) 
+  }});
 
 const companiesReducer = createSlice({
   name: 'companies',
-  initialState: { data: [], loading: false, error: null } as CompaniesState,
-  reducers: {},
+  initialState:initialState,
+  reducers: {
+    searchCompany:(state ,action)=>{
+      state.searchForCompany=action.payload;
+    },
+    SortCompanies:(state ,action)=>{
+      const SortingInput =action.payload;
+      if(SortingInput === 'login'){
+        state.data.sort((a,b)=>a.login.localeCompare(b.login) )
+      }
+      else if(SortingInput === 'id'){
+        state.data.sort((a,b)=>a.id -b.id )
+
+      }
+
+    }
+
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchAllCompanies.pending, (state) => {
@@ -33,9 +57,10 @@ const companiesReducer = createSlice({
       })
       .addCase(fetchAllCompanies.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message;
+        state.error = action.error.message || "ERR ";
       })
   },
 });
 
+export const {searchCompany,SortCompanies} =companiesReducer.actions
 export default companiesReducer.reducer;
