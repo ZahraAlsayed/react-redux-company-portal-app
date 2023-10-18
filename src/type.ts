@@ -24,7 +24,7 @@ export type Company = {
     data: Company[];
     loading: boolean;
     error: null|string ;
-    searchForCompany: number;
+    searchForCompany: number|String;
     SingleCompany:Company |null
   };
 

@@ -6,7 +6,7 @@ const initialState :CompaniesState ={
   data: [],
   loading: false,
   error: null ,
-  searchForCompany :0,
+  searchForCompany :'',
   SingleCompany:null
  }
 

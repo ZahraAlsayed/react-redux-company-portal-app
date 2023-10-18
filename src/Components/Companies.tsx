@@ -20,10 +20,11 @@ function Companies() {
 
   const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
     const srechInput=event.target.value;
-    dispatch(searchCompany(Number(srechInput)))
+    dispatch(searchCompany(srechInput));
+    //dispatch(searchCompany(Number(srechInput)))
     
   };
-//|| dispatch(searchCompany(srechInput));
+
   const filteredCompanies = searchForCompany
     ? companies.filter((company) => company.id === searchForCompany)
     : companies;
@@ -61,7 +62,7 @@ function Companies() {
           <p className="error">Error: {error.message}</p>
         ) : (
           <div className="company-list">
-            {filteredCompanies.map((company) => (
+            {filteredCompaniesByLogin.map((company) => (
               <section key={company.id} className="company">
                 <img src={company.avatar_url} alt={company.login} />
                 <p>{company.id}</p>
