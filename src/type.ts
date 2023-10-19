@@ -1,8 +1,8 @@
 import { ThunkDispatch } from '@reduxjs/toolkit';
 
 import store from './store'
-import companiesSlice ,{fetchAllCompanies} from './features/companiesSlice';
-import SingleCompanySlice ,{fetchCompanyById} from './features/SingleCompanySlice';
+import companiesSlice ,{fetchAllCompanies, fetchCompanyById} from './features/companiesSlice';
+
 
 
 export type Company = {
@@ -21,51 +21,41 @@ export type Company = {
   };
   
   export type CompaniesState = {
-    data: Company[];
+    companies: Company[];
     loading: boolean;
     error: null|string ;
-    searchForCompany: number|String;
-    SingleCompany:Company |null
+    searchForCompany: string |number ;
+    singleCompany:Company|null
   };
 
-  export type RootState = {
-    companies:ReturnType<typeof companiesSlice>;
-};
-export type SingleCompanyRootState = {
-    company:ReturnType<typeof companiesSlice>;
-};
-  
-  //export type AppDispatch = typeof store.dispatch
+export type RootState = ReturnType<typeof store.getState>
+
 
    type FetchCompaniesPengingAction = ReturnType<typeof fetchAllCompanies.pending>;
    type FetchCompaniesFulfilledAction = ReturnType<typeof fetchAllCompanies.fulfilled>;
    type FetchCompaniesRejectedAction = ReturnType<typeof fetchAllCompanies.rejected>;
    type searchConpanyAction ={
-    type :'companies/searchCompany';
+    type :'companies/getSreachCompany';
     payload: number
    }
    type sortConpanyAction ={
     type :'companies/SortCompanies';
     payload: string
    }
-
-   export type CompaniesActions =
-   FetchCompaniesPengingAction
-   |FetchCompaniesFulfilledAction
-   |FetchCompaniesRejectedAction
-   |searchConpanyAction
-   |sortConpanyAction;
-
-   export type CompaniesDispatch = ThunkDispatch<RootState ,void , CompaniesActions>;
-
-   
    type FetchCompanyPengingAction = ReturnType<typeof fetchCompanyById.pending>;
    type FetchCompanyFulfilledAction = ReturnType<typeof fetchCompanyById.fulfilled>;
    type FetchCompanyRejectedAction = ReturnType<typeof fetchCompanyById.rejected>;
 
-   export type CompanyActions =
-   FetchCompanyPengingAction
+   export type CompaniesActions =
+   |FetchCompaniesPengingAction
+   |FetchCompaniesFulfilledAction
+   |FetchCompaniesRejectedAction
+   |searchConpanyAction
+   |sortConpanyAction
+   |FetchCompanyPengingAction
    |FetchCompanyFulfilledAction
    |FetchCompanyRejectedAction;
 
-   export type CompanyDispatch = ThunkDispatch<RootState ,void , CompaniesActions>;
+   export type CompaniesDispatch = ThunkDispatch<RootState ,void , CompaniesActions>;
+
+  

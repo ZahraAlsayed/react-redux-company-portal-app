@@ -4,14 +4,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 60px;
-  background-color: #333;
-  color: #fff;
-}
-
-.logo  {
-  font-family:'Domine';
-  max-width: 100px;
-  height: auto;
+  background-color: #ffffff;
+  color: #000000;
 }
 
 .search-bar {
@@ -21,7 +15,7 @@
 
 .search-bar input[type="text"] {
   padding: 5px;
-  border: 1px solid #ddd;
+  border: 1px solid #115625;
   border-radius: 5px;
   width: 200px;
 }
@@ -40,20 +34,43 @@
   padding: 10px;
   margin: 30px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Change the number to adjust the number of columns */
-  gap: 20px; /* Adjust the gap between grid items */
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 20px; 
 }
 
 .company {
-  border: 1px solid #ccc;
+  border: 1px solid #1156257e;
+  border-radius: 5px;
+  box-shadow: #115625a2;
   padding: 10px;
   text-align: center;
 }
 
+.section {
+    background-color: #fff;
+    padding: 30px;
+    margin: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+h2,p {
+    color: #333;
+}
+
+
 .company img {
   max-width: 100%;
 }
-
+.text  {
+  display: inline-block;
+  color: #115625;
+  padding: 10px 10px;
+  text-decoration: none;
+  text-align: center;
+  margin-top: 10px;
+}
 /* Add media queries for responsiveness */
 @media screen and (max-width: 768px) {
   .company {
@@ -66,6 +83,15 @@
 }
 .company img{
   width: 50%;
+}
+Link{
+  text-align: center;
+  color: #115625;
+  &:hover {
+    font-size: 28px;
+    color: #033b1f89;
+  }
+
 }
 
   .loader{
@@ -102,4 +128,37 @@
     font-size: 18px;
   }
 
-  
+.navbar {
+  background-color: #ffffff;
+  color: #115625;
+  padding: 10px 0;
+  margin: 20px;
+  text-align: center;
+}
+
+.navbar-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.navbar-item {
+  display: inline;
+  margin: 0 20px;
+}
+
+/* Navbar links */
+.navbar-link {
+  text-decoration: none;
+  color: #000000;
+  font-size: 25px;
+  transition: color 0.3s;
+
+
+  &:hover {
+    font-size: 28px;
+    color: #033b1f89;
+    text-decoration: underline;
+  }
+}
+
+

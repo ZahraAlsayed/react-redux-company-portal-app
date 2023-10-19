@@ -4,7 +4,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './Components/Home'
 import Navbar from './Components/Navbar'
 import Companies from './Components/Companies';
-import SingleCompany from'./Components/SingleCompanyPage'
+import SingleCompany from'./Components/SingleCompanyPage';
+//import ErrorPage  from './Components/ErrorPage';
 
 function App() {
   return (
@@ -14,8 +15,7 @@ function App() {
       <Routes>
        <Route path="/" element={<Home/>} />
         <Route path='/companies' element={<Companies/>}/>
-        <Route path='/companies:id' element={<SingleCompany/>}/>
-
+        <Route path="/companies/:id" element={<SingleCompany />} />
       </Routes>
       </BrowserRouter>
       <div>

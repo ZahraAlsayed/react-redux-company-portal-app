@@ -2,37 +2,46 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import {CompanyDispatch} from '../type'
-import {SingleCompanyRootState} from '../type'
-import { fetchCompanyById  } from '../features/SingleCompanySlice';
+import { CompaniesDispatch } from '../type';
+import {RootState} from '../type'
+import { fetchCompanyById  } from '../features/companiesSlice';
 import './style.css'
+import Navbar from './Navbar';
 
 
-function SingleCompanyPage() {
-  const {id}=useParams();
-  const dispatch : CompanyDispatch= useDispatch();
-  const { SingleCompany, loading, error } = useSelector(
-    (state: SingleCompanyRootState) => state.company
+function SingleCompany() {
+  const {id} =useParams();;
+  const dispatch: CompaniesDispatch = useDispatch();
+  const { singleCompany, loading, error } = useSelector(
+    (state: RootState) => state.companies
   );
 
   useEffect(() => {
-    dispatch(fetchCompanyById(Number(id)));
+    if(id){
+      dispatch(fetchCompanyById(Number(id)));
+    } 
   }, [dispatch,id]);
+
 
   return (
     <div>
-     <div className="company-list">
+     <div >
+      
       {loading ? (
         <p><span className="loader"></span></p>
       ) : error ? (
-        <p className="error">Error: {error.message}</p>
+        <p className="error">Error: {error}</p>
       ) : (
-        <div>
-          {SingleCompany.map((company) => (
-            <section key={company.id}>
-              {company.login}
+        <div className=''>
+          {singleCompany &&(
+            <section key={singleCompany.id} className='section'>
+              <h2>{singleCompany.login}</h2>
+              <img src={singleCompany.avatar_url} alt={singleCompany.login} />
+              <p>Company URL {singleCompany.url}</p>
+              <p>Description: {singleCompany.description}</p>
+              <p>Membres: {singleCompany.members_url}</p>
               </section>
-          ))}
+          )}
         </div>
       )}
     </div>
@@ -40,4 +49,4 @@ function SingleCompanyPage() {
   );
 }
 
-export default SingleCompanyPage;
+export default SingleCompany;

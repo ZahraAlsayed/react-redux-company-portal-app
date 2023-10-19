@@ -2,15 +2,15 @@ import React, { ChangeEvent, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import Navbar from './Navbar';
+
 import { RootState } from '../type';
-import { fetchAllCompanies, searchCompany,SortCompanies } from '../features/companiesSlice';
+import { fetchAllCompanies, getSreachCompany,SortCompanies } from '../features/companiesSlice';
 import { CompaniesDispatch } from '../type';
 import './style.css';
 
 function Companies() {
   const dispatch: CompaniesDispatch = useDispatch();
-  const { data: companies, loading, error, searchForCompany } = useSelector(
+  const { companies, loading, error, searchForCompany } = useSelector(
     (state: RootState) => state.companies
   );
 
@@ -19,21 +19,22 @@ function Companies() {
   }, [dispatch]);
 
   const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
-    const srechInput=event.target.value;
-    dispatch(searchCompany(srechInput));
+    const sreachInput=event.target.value;
+    dispatch(getSreachCompany(sreachInput));
     //dispatch(searchCompany(Number(srechInput)))
     
   };
+  
+  const filteredCompanies = companies.filter((company) => {
+    const searchValue = searchForCompany.toString().toLowerCase();
+    //i cast the value beacuse inut is tring value , id:number
+    return company.id === Number(searchValue) || company.login.toLowerCase().includes(searchValue);
+  });
 
-  const filteredCompanies = searchForCompany
-    ? companies.filter((company) => company.id === searchForCompany)
-    : companies;
-
-    const filteredCompaniesByLogin = searchForCompany
-    ? companies.filter((company) => company.login.toLowerCase().includes((searchForCompany.toString()).toLowerCase())) 
-    : companies;
+    
   const handleSort =(event:ChangeEvent<HTMLSelectElement>)=>{
-       dispatch(SortCompanies(event.target.value));
+    const sortingOption=event.target.value;
+       dispatch(SortCompanies(sortingOption));
   }
     
 
@@ -41,11 +42,10 @@ function Companies() {
     <div>
       <div className="header">
         <div className="logo">
-          <h1>Companies App</h1>
-          <h2>hi</h2>
+          <h2>Companies App</h2>
         </div>
         <div className="search-bar">
-          <input type="text" placeholder="Search..." value={searchForCompany} onChange={handleSearch} />
+          <input type="text" placeholder="Search By id or name ..." value={searchForCompany} onChange={handleSearch} />
         </div>
         <div className="sort-dropdown">
           <label htmlFor="sort">Sort by:</label>
@@ -59,16 +59,16 @@ function Companies() {
         {loading ? (
           <p><span className="loader"></span></p>
         ) : error ? (
-          <p className="error">Error: {error.message}</p>
+          <p className="error">Error: {error}</p>
         ) : (
           <div className="company-list">
-            {filteredCompaniesByLogin.map((company) => (
+            {filteredCompanies.map((company) => (
               <section key={company.id} className="company">
                 <img src={company.avatar_url} alt={company.login} />
-                <p>{company.id}</p>
-                <p>{company.login}</p>
-                <p>{company.description}</p>
-                <Link to={`/Companies/${company.id}`}><button>Show Details</button></Link>
+                <p>Compnay ID:{company.id}</p>
+                <p>Company Name :{company.login}. </p>
+                <p>Description :{company.description}</p>
+                <Link className='text' to={`/Companies/${company.id}`}>Show Details</Link>
               </section>
             ))}
           </div>
