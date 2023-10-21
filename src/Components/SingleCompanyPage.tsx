@@ -5,8 +5,9 @@ import { useParams } from 'react-router-dom';
 import { CompaniesDispatch } from '../type';
 import {RootState} from '../type'
 import { fetchCompanyById  } from '../features/companiesSlice';
-import './style.css'
 import Navbar from './Navbar';
+import './style.css'
+
 
 
 function SingleCompany() {
@@ -22,16 +23,17 @@ function SingleCompany() {
     } 
   }, [dispatch,id]);
 
+  if (loading) {
+    return <p><span className="loader"></span></p>
+}
+  if (error) {
+  <p className="error">Error: {error}</p>
+}
+
 
   return (
     <div>
      <div >
-      
-      {loading ? (
-        <p><span className="loader"></span></p>
-      ) : error ? (
-        <p className="error">Error: {error}</p>
-      ) : (
         <div className=''>
           {singleCompany &&(
             <section key={singleCompany.id} className='section'>
@@ -43,7 +45,6 @@ function SingleCompany() {
               </section>
           )}
         </div>
-      )}
     </div>
     </div>
   );

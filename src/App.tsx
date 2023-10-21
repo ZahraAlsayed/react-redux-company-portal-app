@@ -5,7 +5,8 @@ import Home from './Components/Home'
 import Navbar from './Components/Navbar'
 import Companies from './Components/Companies';
 import SingleCompany from'./Components/SingleCompanyPage';
-//import ErrorPage  from './Components/ErrorPage';
+import Error from './Components/Error';
+
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
        <Route path="/" element={<Home/>} />
         <Route path='/companies' element={<Companies/>}/>
         <Route path="/companies/:id" element={<SingleCompany />} />
+        <Route path="/*" element={<Error/>} />
       </Routes>
       </BrowserRouter>
       <div>

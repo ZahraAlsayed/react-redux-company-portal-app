@@ -21,7 +21,6 @@ function Companies() {
   const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
     const sreachInput=event.target.value;
     dispatch(getSreachCompany(sreachInput));
-    //dispatch(searchCompany(Number(srechInput)))
     
   };
   
@@ -36,6 +35,12 @@ function Companies() {
     const sortingOption=event.target.value;
        dispatch(SortCompanies(sortingOption));
   }
+  if (loading) {
+    return <p><span className="loader"></span></p>
+}
+  if (error) {
+  <p className="error">Error: {error}</p>
+}
     
 
   return (
@@ -56,11 +61,6 @@ function Companies() {
         </div>
       </div>
       <div>
-        {loading ? (
-          <p><span className="loader"></span></p>
-        ) : error ? (
-          <p className="error">Error: {error}</p>
-        ) : (
           <div className="company-list">
             {filteredCompanies.map((company) => (
               <section key={company.id} className="company">
@@ -72,7 +72,6 @@ function Companies() {
               </section>
             ))}
           </div>
-        )}
       </div>
     </div>
   );
